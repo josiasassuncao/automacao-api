@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.11.1 on win32)" generated="20240529 12:56:59.261" rpa="false" schemaversion="3">
+<suite id="s1" name="Automacao-Api" source="E:\Estudos 2024\automacao-api">
+<suite id="s1-s1" name="Tests" source="E:\Estudos 2024\automacao-api\tests">
+<suite id="s1-s1-s1" name="User Tests" source="E:\Estudos 2024\automacao-api\tests\user_tests.robot">
+<test id="s1-s1-s1-t1" name="Scenario: Criar um novo usuário" line="6">
+<kw name="Eu acesso a API Reqres" library="user_steps" type="SETUP">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>reqres</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20240529 12:56:59.395" level="INFO">Creating Session using : alias=reqres, url=https://reqres.in/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20240529 12:56:59.394" endtime="20240529 12:56:59.395"/>
+</kw>
+<status status="PASS" starttime="20240529 12:56:59.394" endtime="20240529 12:56:59.395"/>
+</kw>
+<kw name="Given Eu crio um novo usuário" library="user_steps">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${user_details}</var>
+<arg>nome=João</arg>
+<arg>trabalho=Líder</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240529 12:56:59.399" level="INFO">${user_details} = {'nome': 'João', 'trabalho': 'Líder'}</msg>
+<status status="PASS" starttime="20240529 12:56:59.398" endtime="20240529 12:56:59.399"/>
+</kw>
+<kw name="Eu crio um novo usuário com os seguintes detalhes" library="user_steps">
+<var>${response}</var>
+<arg>${user_details}</arg>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>reqres</arg>
+<arg>/users</arg>
+<arg>json=${user_details}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20240529 12:56:59.894" level="INFO">POST Request : url=https://reqres.in/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"nome": "Jo\\u00e3o", "trabalho": "L\\u00edder"}' 
+ </msg>
+<msg timestamp="20240529 12:56:59.894" level="INFO">POST Response : url=https://reqres.in/api/users 
+ status=201, reason=Created 
+ headers={'Date': 'Wed, 29 May 2024 15:56:59 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '85', 'Connection': 'keep-alive', 'Report-To': '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1716998219&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=bPvxbRCkbK2Yh4Eu3%2FJ3TA09AQjCtGpUSwnf3PUay08%3D"}]}', 'Reporting-Endpoints': 'heroku-nel=https://nel.heroku.com/reports?ts=1716998219&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=bPvxbRCkbK2Yh4Eu3%2FJ3TA09AQjCtGpUSwnf3PUay08%3D', 'Nel': '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"55-RcuivSUzQQoi8EeRVM01t+MTTto"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Server': 'cloudflare', 'CF-RAY': '88b7ad77cb43a529-GRU'} 
+ body={"nome":"João","trabalho":"Líder","id":"62","createdAt":"2024-05-29T15:56:59.787Z"} 
+ </msg>
+<msg timestamp="20240529 12:56:59.894" level="INFO">C:\Users\Akemii\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20240529 12:56:59.895" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20240529 12:56:59.399" endtime="20240529 12:56:59.895"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${USER_ID}</arg>
+<arg>${response.json()['id']}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20240529 12:56:59.896" level="INFO">${USER_ID} = 62</msg>
+<status status="PASS" starttime="20240529 12:56:59.895" endtime="20240529 12:56:59.896"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" starttime="20240529 12:56:59.896" endtime="20240529 12:56:59.896"/>
+</return>
+<msg timestamp="20240529 12:56:59.897" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20240529 12:56:59.399" endtime="20240529 12:56:59.897"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20240529 12:56:59.897" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20240529 12:56:59.897" endtime="20240529 12:56:59.897"/>
+</kw>
+<status status="PASS" starttime="20240529 12:56:59.396" endtime="20240529 12:56:59.898"/>
+</kw>
+<kw name="When O status da resposta deve ser 201" library="user_steps">
+<kw name="Should Be Equal As Numbers" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<msg timestamp="20240529 12:56:59.901" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20240529 12:56:59.900" endtime="20240529 12:56:59.901"/>
+</kw>
+<status status="PASS" starttime="20240529 12:56:59.899" endtime="20240529 12:56:59.901"/>
+</kw>
+<kw name="Then A resposta deve conter os detalhes do usuário criado" library="user_steps">
+<kw name="Should Contain" library="BuiltIn">
+<arg>${response.json()['nome']}</arg>
+<arg>João</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20240529 12:56:59.905" endtime="20240529 12:56:59.905"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${response.json()['trabalho']}</arg>
+<arg>Líder</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20240529 12:56:59.905" endtime="20240529 12:56:59.906"/>
+</kw>
+<status status="PASS" starttime="20240529 12:56:59.903" endtime="20240529 12:56:59.906"/>
+</kw>
+<status status="PASS" starttime="20240529 12:56:59.393" endtime="20240529 12:56:59.907"/>
+</test>
+<status status="PASS" starttime="20240529 12:56:59.283" endtime="20240529 12:56:59.908"/>
+</suite>
+<status status="PASS" starttime="20240529 12:56:59.280" endtime="20240529 12:56:59.909"/>
+</suite>
+<status status="PASS" starttime="20240529 12:56:59.265" endtime="20240529 12:56:59.910"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Automacao-Api">Automacao-Api</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="Tests">Automacao-Api.Tests</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1-s1" name="User Tests">Automacao-Api.Tests.User Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
